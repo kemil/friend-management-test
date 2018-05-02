@@ -14,4 +14,18 @@ class User < ApplicationRecord
   has_many :inverse_subscribes, :class_name => "Subscribe", :foreign_key => "subscriber_id"
   has_many :inverse_subscribers, :through => :inverse_subscribes, :source => :user
 
+  def self.has_friend?(users)
+    a = users.first
+    b = users.last
+    a.is_connected?(b)
+  end
+
+  def is_connected?(target)
+    friendships.include?(target)
+  end
+
+  def self.create_friendship(users)
+    users.first.friends.create(friend_id: users.last.id)
+    users.last.friends.create(friend_id: users.first.id)
+  end
 end

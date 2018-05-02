@@ -19,10 +19,22 @@ class Friend < ApplicationRecord
     end
 
     if User.has_friend?(users)
-      return {message: "Already connected", success: false}
+      return {message: "Emails already connected", success: false}
     else
       User.create_friendship(users)
       return {success: true}
     end
   end
+
+  def self.list(email)
+    user = User.find_by_email(email)
+    unless user.blank?
+      friends = user.friendships.map(&:email)
+      count = friends.count
+      return {success: true, friends: friends, count: count}
+    else
+      return {message: "#{email} is not exist", success: false}
+    end
+  end
+
 end

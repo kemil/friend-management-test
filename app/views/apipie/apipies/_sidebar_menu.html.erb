@@ -1,0 +1,10 @@
+<% if @doc %>
+  <nav class="pull-left" role="navigation" style="width:150px;padding:15px;">
+    <ul class='nav navbar-nav' style="position:fixed;">
+      <h2>API Menu</h2>
+      <% @doc[:resources].sort_by(&:first).each do |key, api| %>
+        <li><a href="#<%= api[:name].parameterize %>"><%= api[:name].titleize %></a></li>
+      <% end %>
+    </ul>
+  </nav>
+<% end %>

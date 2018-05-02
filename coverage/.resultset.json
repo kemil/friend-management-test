@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/kemilaisdiandini/job/friend-management-test/spec/controllers/api/v1/api_controller_spec.rb": [
+      "/Users/kemilaisdiandini/job/friend-management-test/spec/controllers/api/api_controller_spec.rb": [
         1,
         null,
         1,
@@ -62,8 +62,8 @@
         null,
         null,
         1,
-        0,
-        0,
+        7,
+        7,
         null,
         null,
         null,
@@ -170,6 +170,23 @@
         null,
         null
       ],
+      "/Users/kemilaisdiandini/job/friend-management-test/config/initializers/apipie.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
       "/Users/kemilaisdiandini/job/friend-management-test/config/initializers/application_controller_renderer.rb": [
         null,
         null,
@@ -261,37 +278,98 @@
       "/Users/kemilaisdiandini/job/friend-management-test/config/routes.rb": [
         1,
         null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null
+      ],
+      "/Users/kemilaisdiandini/job/friend-management-test/app/helpers/api/api_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/kemilaisdiandini/job/friend-management-test/app/helpers/api/friends_helper.rb": [
+        1,
         null
       ],
       "/Users/kemilaisdiandini/job/friend-management-test/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/Users/kemilaisdiandini/job/friend-management-test/spec/controllers/api/v1/friends_controller_spec.rb": [
+      "/Users/kemilaisdiandini/job/friend-management-test/app/controllers/api/api_controller.rb": [
         1,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/kemilaisdiandini/job/friend-management-test/spec/helpers/api/v1/api_helper_spec.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         null,
         1,
         0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
-      "/Users/kemilaisdiandini/job/friend-management-test/spec/helpers/api/v1/friends_helper_spec.rb": [
+      "/Users/kemilaisdiandini/job/friend-management-test/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/kemilaisdiandini/job/friend-management-test/spec/controllers/api/friends_controller_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        2,
+        2,
+        2,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/kemilaisdiandini/job/friend-management-test/app/controllers/api/friends_controller.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        4,
+        4,
+        null,
+        null
+      ],
+      "/Users/kemilaisdiandini/job/friend-management-test/spec/helpers/api/api_helper_spec.rb": [
         1,
         null,
         null,
@@ -305,14 +383,31 @@
         null,
         null,
         1,
-        0,
+        1,
+        null
+      ],
+      "/Users/kemilaisdiandini/job/friend-management-test/spec/helpers/api/friends_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
         null
       ],
       "/Users/kemilaisdiandini/job/friend-management-test/spec/models/friend_spec.rb": [
         1,
         null,
         1,
-        1,
+        2,
         null
       ],
       "/Users/kemilaisdiandini/job/friend-management-test/app/models/friend.rb": [
@@ -326,21 +421,21 @@
         null,
         null,
         1,
-        0,
-        0,
-        0,
-        0,
-        0,
+        4,
+        3,
+        3,
+        6,
+        6,
         null,
-        0,
+        1,
         null,
         null,
         null,
-        0,
-        0,
+        2,
+        1,
         null,
-        0,
-        0,
+        1,
+        1,
         null,
         null,
         null
@@ -354,7 +449,7 @@
         1,
         null,
         1,
-        1,
+        2,
         null
       ],
       "/Users/kemilaisdiandini/job/friend-management-test/app/models/subscribe.rb": [
@@ -372,8 +467,8 @@
         1,
         null,
         1,
-        1,
-        1,
+        2,
+        2,
         null
       ],
       "/Users/kemilaisdiandini/job/friend-management-test/app/models/user.rb": [
@@ -393,9 +488,23 @@
         1,
         1,
         null,
+        1,
+        2,
+        2,
+        2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
         null
       ]
     },
-    "timestamp": 1525259616
+    "timestamp": 1525277842
   }
 }
