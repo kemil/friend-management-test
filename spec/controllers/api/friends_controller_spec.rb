@@ -35,4 +35,22 @@ RSpec.describe Api::FriendsController, type: :controller do
       end
     end
   end
+
+
+  describe 'GET /api/friends' do
+    let(:valid_attribute) { { email: 'email1@spec.com'} }
+
+    before {
+      Friend.connect(['email1@spec.com', 'email2@spec.com'])
+      Friend.connect(['email1@spec.com', 'email3@spec.com'])
+    }
+
+    context 'when request attributes are valid' do
+      it 'returns success' do
+        get "index", params: valid_attribute
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({success: true, friends: ['email2@spec.com', 'email3@spec.com'], count: 2}.to_json)
+      end
+    end
+  end
 end

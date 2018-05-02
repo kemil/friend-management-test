@@ -6,4 +6,11 @@ class Api::FriendsController < Api::ApiController
     connect = Friend.connect(params[:friends])
     render json: connect
   end
+
+  api :get, '/friends', 'List of friends'
+  param :email, String, required: true, desc: 'Selected user email'
+  def index
+    friends = Friend.list(params[:email])
+    render json: friends
+  end
 end

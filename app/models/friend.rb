@@ -8,7 +8,7 @@ class Friend < ApplicationRecord
 
 
   def self.connect(emails)
-    return {message: '2 email addresses required', success: false} if emails.blank? || emails.length < 2
+    return {message: '2 email addresses required', success: false} if emails.blank? || emails.length != 2
     users = []
     emails.each do |email|
       begin
