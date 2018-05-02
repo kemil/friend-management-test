@@ -37,4 +37,22 @@ class Friend < ApplicationRecord
     end
   end
 
+  def self.common(emails)
+    return {message: '2 email addresses required', success: false} if emails.blank? || emails.length != 2
+
+    users = []
+    emails.each do |email|
+      begin
+        users << User.find_or_create_by!(email: email)
+      rescue => e
+        return {message: e.to_s, success: false}
+      end
+    end
+
+    first_user_friends = users.first.friendships
+    last_user_friends  = users.last.friendships
+    commons = first_user_friends.select{ |e| last_user_friends.include?(e)}.map(&:email)
+    return {success: true, friends: commons, count: commons.count}
+  end
+
 end

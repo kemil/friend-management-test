@@ -38,4 +38,32 @@ RSpec.describe Friend, type: :model do
     expect(friends).to eql({message: "#{d} is not exist", success: false})
   end
 
+
+  it 'should show common friends' do
+    a = "email1@spec.com"
+    b = "email2@spec.com"
+    c = "email3@spec.com"
+    d = "another@email.com"
+    e = "failur_email.com"
+
+    Friend.connect([a, b])
+    Friend.connect([a, c])
+    Friend.connect([b, c])
+
+    friends = Friend.common([a, b])
+    expect(friends).to eql({success: true, friends: [c], count: 1})
+
+    friends = Friend.common([b, c])
+    expect(friends).to eql({success: true, friends: [a], count: 1})
+
+    friends = Friend.common([a, c])
+    expect(friends).to eql({success: true, friends: [b], count: 1})
+
+    friends = Friend.common([b, d])
+    expect(friends).to eql({success: true, friends: [], count: 0})
+
+    friends = Friend.common([a, e])
+    expect(friends).to eql({message: "Validation failed: Email is invalid", :success=>false})
+  end
+
 end

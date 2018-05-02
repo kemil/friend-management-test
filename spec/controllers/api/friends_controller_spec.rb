@@ -51,6 +51,42 @@ RSpec.describe Api::FriendsController, type: :controller do
         expect(response).to have_http_status(200)
         expect(response.body).to eq({success: true, friends: ['email2@spec.com', 'email3@spec.com'], count: 2}.to_json)
       end
+
+      it 'returns empty friends list' do
+        get "index", params: {email: 'emaila@spec.com'}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({message: "emaila@spec.com is not exist", success: false}.to_json)
+      end
     end
   end
+
+
+  describe 'POST /api/friends/common' do
+    before {
+      Friend.connect(['emaila@spec.com', 'emailb@spec.com'])
+      Friend.connect(['emaila@spec.com', 'emailc@spec.com'])
+      Friend.connect(['emaila@spec.com', 'emaild@spec.com'])
+      Friend.connect(['emaild@spec.com', 'emailb@spec.com'])
+    }
+
+    context 'when request by 2 emails' do
+      it 'returns success' do
+        post "common", params: {friends: ['emaila@spec.com', 'emailb@spec.com']}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({success: true, friends: ['emaild@spec.com'], count: 1}.to_json)
+      end
+
+      it 'returns empty common friends' do
+        post "common", params: {friends: ['emaila@spec.com', 'emailc@spec.com']}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({success: true, friends: [], count: 0}.to_json)
+      end
+
+      it 'returns invalid input array' do
+        post "common", params: {friends: ['emaila@spec.com', 'emailcspec.com']}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({message: "Validation failed: Email is invalid", success: false}.to_json)
+      end
+    end
+end
 end
