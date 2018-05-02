@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: fm_api_development
+  username:
+
+
+test:
+  <<: *default
+  database: fm_api_test
+  username:
+  password:
