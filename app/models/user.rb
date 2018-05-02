@@ -27,5 +27,11 @@ class User < ApplicationRecord
   def self.create_friendship(users)
     users.first.friends.create(friend_id: users.last.id)
     users.last.friends.create(friend_id: users.first.id)
+    Subscribe.creates_(users)
   end
+
+  def has_subscriber?(user)
+    self.subscribers.include?(user)
+  end
+
 end

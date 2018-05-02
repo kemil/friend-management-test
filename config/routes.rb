@@ -7,6 +7,8 @@ Rails.application.routes.draw do
         post :common
       end
     end
+
+    resources :subscribes
   end
 
   root 'apipie/apipies#index'
