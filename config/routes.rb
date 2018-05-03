@@ -8,7 +8,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :subscribes
+    resources :subscribes, only: [:create] do
+      collection do
+        post :block
+        post :unblock
+      end
+    end
   end
 
   root 'apipie/apipies#index'
