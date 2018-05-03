@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       collection do
         post :block
         post :unblock
+        post :send_update
       end
     end
   end

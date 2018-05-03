@@ -40,4 +40,41 @@ RSpec.describe Subscribe, type: :model do
     expect(status).to eq(false)
   end
 
+  it "should retrieve all email addresses that can receive updates from an email address" do
+    a = "email-a@spec.com"
+    b = "email-b@spec.com"
+    c = "email-c@spec.com"
+    d = "email-d@spec.com"
+    z = "failedemail.com"
+
+    #failed
+    status = Subscribe.send_update(a, "This is send update email")
+    expect(status).to eq({message: "This email email-a@spec.com is not found", success: false})
+
+    Friend.connect([a, b])
+    Subscribe.add(d, a)
+
+    #retrieve emails
+    status = Subscribe.send_update(a, "This is send update email")
+    expect(status).to eq(success: true, recepient: [b, d])
+
+    #invalid email
+    status = Subscribe.send_update(z, "This is send update email")
+    expect(status).to eq(message: "#{z} is invalid email", success: false)
+
+    #invite email mentioned
+    status = Subscribe.send_update(b, "These email address: email-d@spec.com will be invited ")
+    expect(status).to eq({success: true, recepient: [a, d]})
+
+    #block 1 user
+    Subscribe.block(a, b)
+    status = Subscribe.send_update(a, "These email addresses: email-d@spec.com email-c@spec.com will be invited ")
+    expect(status).to eq({success: true, recepient: [d, c]})
+
+    #unblock 1 user
+    Subscribe.unblock(a, b)
+    status = Subscribe.send_update(a, "These email addresses: email-d@spec.com email-c@spec.com will be invited ")
+    expect(status).to eq({success: true, recepient: [b, d, c]})
+  end
+
 end

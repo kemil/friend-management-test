@@ -71,8 +71,39 @@ class Subscribe < ApplicationRecord
     return users
   end
 
+  def self.send_update(sender, text)
+    return {message: "#{sender} is invalid email", success: false} unless Subscribe.validate_email(sender)
+    user = User.find_by_email(sender)
+    return {message: "This email #{sender} is not found", success: false} if user.blank?
+    Subscribe.find_email_address(user, text)
+
+    friend_ids = user.friendship_ids
+    blocked_ids = user.subscribes.where(block: true).map(&:subscriber_id)
+    unblocked_ids = user.subscribes.where(block: false).map(&:subscriber_id)
+    recepient = (friend_ids + unblocked_ids).select{|x| blocked_ids.exclude?(x)}.uniq || []
+    emails = User.find(recepient).map(&:email) || []
+
+    return {success: true, recepient: emails}
+  end
+
+  def self.find_email_address(user, text)
+    emails = []
+    Subscribe.find_email(text).each do |email|
+      emails << email
+    end
+    emails.each do |email|
+      requestor = User.find_or_create_by!(email: email)
+      Subscribe.creates_([requestor, user])
+    end
+  end
+
+
   def self.validate_email(email)
     return (email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i).present?
+  end
+
+  def self.find_email(text)
+    text.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
   end
 
 end

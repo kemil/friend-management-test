@@ -23,4 +23,12 @@ class Api::SubscribesController < Api::ApiController
     unblock = Subscribe.unblock(params[:requestor], params[:target])
     render json: unblock
   end
+
+  api :post, '/subscribes/send_update', 'Send updates to subscibers or friends'
+  param :sender, String, required: true, desc: 'Sender email'
+  param :text, String, required: true, desc: 'Content'
+  def send_update
+    send_update = Subscribe.send_update(params[:sender], params[:text])
+    render json: send_update
+  end
 end

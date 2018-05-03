@@ -63,5 +63,31 @@ RSpec.describe Api::SubscribesController, type: :controller do
         expect(Subscribe.first.block).to eq(false)
       end
     end
-end
+  end
+
+
+  describe 'POST /subscribes/send_update' do
+    before {
+      Subscribe.add("email-b@spec.com", "email-a@spec.com")
+    }
+
+    context 'when request use wrong parameters' do
+      it 'returns success' do
+        post "send_update", params: {sender: "email-a@spec.com", text: "This is text for test"}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({success: true, recepient: ["email-b@spec.com"]}.to_json)
+
+        post "send_update", params: {sender: "email-b@spec.com", text: "This is text for test"}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({success: true, recepient: []}.to_json)
+      end
+
+      it 'returns success and get new subscribers retrieve from email content' do
+        post "send_update", params: {sender: "email-b@spec.com", text: "This is text for test email-z@spec.com and email-x@spec.com"}
+        expect(response).to have_http_status(200)
+        expect(response.body).to eq({success: true, recepient: ['email-z@spec.com', 'email-x@spec.com']}.to_json)
+      end
+    end
+  end
+
 end
